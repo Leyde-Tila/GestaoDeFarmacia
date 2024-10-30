@@ -1,0 +1,29 @@
+<component name="libraryTable">
+  <library name="Bibliotecas2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/build/classes/Bibliotecas/TimingFramework-0.55.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/classes/Bibliotecas/hibernate-commons-annotations-5.1.2.Final.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/classes/Bibliotecas/byte-buddy-1.11.20.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/classes/Bibliotecas/mysql-connector-java-8.0.20.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/classes/Bibliotecas/txw2-2.3.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/classes/Bibliotecas/jboss-transaction-api_1.2_spec-1.1.1.Final.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/classes/Bibliotecas/jcalendar-1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/classes/Bibliotecas/jandex-2.2.3.Final.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/classes/Bibliotecas/jaxb-runtime-2.3.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/classes/Bibliotecas/classmate-1.5.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/classes/Bibliotecas/antlr-2.7.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/classes/Bibliotecas/miglayout-4.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/classes/Bibliotecas/javax.persistence-api-2.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/classes/Bibliotecas/istack-commons-runtime-3.0.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/classes/Bibliotecas/miglayout-swing-11.4.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/classes/Bibliotecas/jaxb-api-2.3.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/classes/Bibliotecas/stax-ex-1.8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/classes/Bibliotecas/javax.activation-api-1.2.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/classes/Bibliotecas/jboss-logging-3.4.2.Final.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/classes/Bibliotecas/FastInfoset-1.2.15.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/classes/Bibliotecas/hibernate-core-5.6.0.Final.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
