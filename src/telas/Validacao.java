@@ -26,7 +26,7 @@ public class Validacao {
         public static String idioma="portugues";
         public static int idFuncionario=1;
         public static Font fonte=new Font("Serif", Font.ITALIC, 11);
-        public static Font fonteNormal=new Font("Monospaced", Font.BOLD, 15);
+        public static Font fonteNormal=new Font("Monospaced", Font.BOLD, 11);
         public static String frameAlerta="false";
         public static String frameError="false";
         public static String frameSucess="false";
