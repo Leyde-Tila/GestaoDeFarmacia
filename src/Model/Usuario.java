@@ -21,23 +21,23 @@ private String usuario;
 private boolean estado;
 private Date dataHoraCriacao;
 private Date ultimoLogin;
+private String categoria;
 
-    public Usuario() {
-        this.estado=true;
-    }
-
-    public Usuario(long id, String nome, String senha, String usuario, boolean estado, Date dataHoraCriacao, Date ultimoLogin) {
+    public Usuario(long id, String nome, String senha, String usuario, boolean estado, Date dataHoraCriacao, Date ultimoLogin, String categoria) {
         this.id = id;
         this.nome = nome;
         this.senha = senha;
         this.usuario = usuario;
-        this.estado = estado=true;
+        this.estado = estado;
         this.dataHoraCriacao = dataHoraCriacao;
         this.ultimoLogin = ultimoLogin;
-        
-        
+        this.categoria = categoria;
     }
 
+    public Usuario() {
+    }
+
+    
     public long getId() {
         return id;
     }
@@ -94,8 +94,19 @@ private Date ultimoLogin;
         this.ultimoLogin = ultimoLogin;
     }
 
-  
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+
    
+
+  
+  
     @Override
     public int hashCode() {
         int hash = 5;

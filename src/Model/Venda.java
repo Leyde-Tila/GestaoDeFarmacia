@@ -6,6 +6,7 @@ package Model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -27,25 +28,15 @@ public class Venda {
     private Produto produto;
      @ManyToOne
     private Usuario usuario;
-    private BigDecimal totalDavenda;
-    private BigDecimal valorpago;
-    private BigDecimal desconto;
-    private BigDecimal troco;
-    private LocalDateTime dataHoraCriacao;
-    private LocalDateTime ultimaActualizacao;
+    private Double totalDavenda;
+    private Double valorpago;
+    private Double desconto;
+    private Double troco;
+    private int quantidade;
+    private Date dataHoraCriacao;
+    private Date ultimaActualizacao;
 
-    public Venda() {
-    }
-
-    public Produto getProduto() {
-        return produto;
-    }
-
-    public void setProduto(Produto produto) {
-        this.produto = produto;
-    }
-
-    public Venda(long id, Cliente cliente, Produto produto, Usuario usuario, BigDecimal totalDavenda, BigDecimal valorpago, BigDecimal desconto, BigDecimal troco, LocalDateTime dataHoraCriacao, LocalDateTime ultimaActualizacao) {
+    public Venda(long id, Cliente cliente, Produto produto, Usuario usuario, Double totalDavenda, Double valorpago, Double desconto, Double troco, int quantidade, Date dataHoraCriacao, Date ultimaActualizacao) {
         this.id = id;
         this.cliente = cliente;
         this.produto = produto;
@@ -54,10 +45,13 @@ public class Venda {
         this.valorpago = valorpago;
         this.desconto = desconto;
         this.troco = troco;
+        this.quantidade = quantidade;
         this.dataHoraCriacao = dataHoraCriacao;
         this.ultimaActualizacao = ultimaActualizacao;
     }
-    
+
+    public Venda() {
+    }
 
     public long getId() {
         return id;
@@ -75,6 +69,14 @@ public class Venda {
         this.cliente = cliente;
     }
 
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+
     public Usuario getUsuario() {
         return usuario;
     }
@@ -83,54 +85,60 @@ public class Venda {
         this.usuario = usuario;
     }
 
-    public BigDecimal getTotalDavenda() {
+    public Double getTotalDavenda() {
         return totalDavenda;
     }
 
-    public void setTotalDavenda(BigDecimal totalDavenda) {
+    public void setTotalDavenda(Double totalDavenda) {
         this.totalDavenda = totalDavenda;
     }
 
-    public BigDecimal getValorpago() {
+    public Double getValorpago() {
         return valorpago;
     }
 
-    public void setValorpago(BigDecimal valorpago) {
+    public void setValorpago(Double valorpago) {
         this.valorpago = valorpago;
     }
 
-    public BigDecimal getDesconto() {
+    public Double getDesconto() {
         return desconto;
     }
 
-    public void setDesconto(BigDecimal desconto) {
+    public void setDesconto(Double desconto) {
         this.desconto = desconto;
     }
 
-    public BigDecimal getTroco() {
+    public Double getTroco() {
         return troco;
     }
 
-    public void setTroco(BigDecimal troco) {
+    public void setTroco(Double troco) {
         this.troco = troco;
     }
 
-    public LocalDateTime getDataHoraCriacao() {
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public Date getDataHoraCriacao() {
         return dataHoraCriacao;
     }
 
-    public void setDataHoraCriacao(LocalDateTime dataHoraCriacao) {
+    public void setDataHoraCriacao(Date dataHoraCriacao) {
         this.dataHoraCriacao = dataHoraCriacao;
     }
 
-    public LocalDateTime getUltimaActualizacao() {
+    public Date getUltimaActualizacao() {
         return ultimaActualizacao;
     }
 
-    public void setUltimaActualizacao(LocalDateTime ultimaActualizacao) {
+    public void setUltimaActualizacao(Date ultimaActualizacao) {
         this.ultimaActualizacao = ultimaActualizacao;
     }
-    
-    
-    
+ 
 }

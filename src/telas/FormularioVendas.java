@@ -492,25 +492,27 @@ public class FormularioVendas extends javax.swing.JPanel {
         Date dataVenda = new Date();
 
         for (int i = 0; i < linhas; i++) {
-            int quantidade += Integer.parseInt(tabelaProdutosSeleccionados.getValueAt(i, 3).toString());
+            int quantidade = Integer.valueOf(tabelaProdutosSeleccionados.getValueAt(i, 3).toString());
 
-            int total = (Integer.parseInt(tabelaProdutosSeleccionados.getValueAt(i, 3).toString())
+            Double total = (Integer.parseInt(tabelaProdutosSeleccionados.getValueAt(i, 3).toString())
                     * Double.parseDouble(tabelaProdutosSeleccionados.getValueAt(i, 5).toString()));
 
 
             
             //Seleccionar Produto
-            long id = (long) tabelaProdutosSeleccionados.getValueAt(tabelaProdutosSeleccionados.getSelectedRow(), 0);
+            long id = (long) tabelaProdutosSeleccionados.getValueAt(i, 0);
             Produto selectedProduto = (Produto) new GenericController().buscaId(Produto.class, id);
             
             //Instanciar a Venda
             Venda venda = new Venda();
             
             venda.setCliente(selectedCliente);
-            venda.setUsuario(new Usuario());
+            //venda.setUsuario(new Usuario());
             venda.setProduto(selectedProduto);
             venda.setTotalDavenda(total);
-            
+            venda.setQuantidade(quantidade);
+            venda.setDataHoraCriacao(dataVenda);
+
             new GenericController().add(venda);
             
            
