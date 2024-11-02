@@ -7,8 +7,11 @@ package telas;
 import DAO.GenericController;
 import Model.Cliente;
 import Model.Produto;
+import Model.Usuario;
+import Model.Venda;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,6 +21,8 @@ import javax.swing.table.DefaultTableModel;
 public class FormularioVendas extends javax.swing.JPanel {
 
     List<Produto> produtosSelecionados = new ArrayList<Produto>();
+
+    Cliente selectedCliente;
 
     /**
      * Creates new form FormularioVendas
@@ -43,7 +48,7 @@ public class FormularioVendas extends javax.swing.JPanel {
 
         DefaultTableModel model = (DefaultTableModel) tabelaProduto.getModel();
         model.setColumnIdentifiers(new String[]{
-            "ID", "Nome", "Categoria", "Quantidade", "Fornecedor", "Data Entrada", "Data Vencimento"
+            "ID", "Nome", "Categoria", "Quantidade", "Fornecedor", "Data Entrada", "Data Vencimento", "Preço"
         });
         model.setRowCount(0);
 
@@ -58,7 +63,8 @@ public class FormularioVendas extends javax.swing.JPanel {
                     produto.getQuantidade(), // Telefone do cliente
                     produto.getFornecedor(), // Morada do cliente (endereço)
                     produto.getDataDeEntrada(),
-                    produto.getDataDeVencimento(),});
+                    produto.getDataDeVencimento(),
+                    produto.getPreco(),});
             }
         }
 
@@ -70,7 +76,7 @@ public class FormularioVendas extends javax.swing.JPanel {
 
         DefaultTableModel model = (DefaultTableModel) tabelaProdutosSeleccionados.getModel();
         model.setColumnIdentifiers(new String[]{
-            "ID", "Nome", "Q. Disponivel", "Q. Pretendida", "Data Vencimento"
+            "ID", "Nome", "Q. Disponivel", "Q. Pretendida", "Data Vencimento", "Preço"
         });
         model.setRowCount(0);
 
@@ -82,7 +88,8 @@ public class FormularioVendas extends javax.swing.JPanel {
                 produto.getNome(), // Nome do cliente
                 produto.getQuantidade(), // Telefone do cliente
                 1, // Morada do cliente (endereço)
-                produto.getDataDeVencimento(),});
+                produto.getDataDeVencimento(),
+                produto.getPreco(),});
         }
 
         tabelaProdutosSeleccionados.setModel(model);
@@ -94,14 +101,22 @@ public class FormularioVendas extends javax.swing.JPanel {
     private void setQuantidade() {
         int linhas = tabelaProdutosSeleccionados.getRowCount();
         int quantidade = 0;
-        
+        double total = 0;
+        double iva = 0;
+        double totalIva = 0;
+
         for (int i = 0; i < linhas; i++) {
-            quantidade+=Integer.parseInt(
-                    tabelaProdutosSeleccionados.getValueAt(i, 3).toString()
-            );
+            quantidade += Integer.parseInt(tabelaProdutosSeleccionados.getValueAt(i, 3).toString());
+
+            total += (Integer.parseInt(tabelaProdutosSeleccionados.getValueAt(i, 3).toString())
+                    * Double.parseDouble(tabelaProdutosSeleccionados.getValueAt(i, 5).toString()));
         }
-        
-        tfQuantidade.setText(quantidade+"");
+
+        tfQuantidade.setText(quantidade + "");
+        lbTotalSemIva.setText(total + "");
+        lbIva.setText((total * 0.16) + "");
+        lbTotal.setText(total * 1.16 + "");
+
     }
 
     private void actualizarTabelaCliente() {
@@ -157,9 +172,12 @@ public class FormularioVendas extends javax.swing.JPanel {
         jScrollPane3 = new javax.swing.JScrollPane();
         tabelaProdutosSeleccionados = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        lbTotal = new javax.swing.JLabel();
+        btVender = new javax.swing.JButton();
+        btCancelar = new javax.swing.JButton();
+        lbTotalSemIva = new javax.swing.JLabel();
+        lbIva = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -179,7 +197,7 @@ public class FormularioVendas extends javax.swing.JPanel {
 
         jLabel3.setText("Quantidade");
 
-        jLabel1.setText("IVA");
+        jLabel1.setText("Total sem IVA");
 
         jLabel6.setText("Total");
 
@@ -219,6 +237,11 @@ public class FormularioVendas extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tabelaCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaClienteMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tabelaCliente);
 
         tfPesquisarProduto.setText("Pesquisar produto");
@@ -268,26 +291,37 @@ public class FormularioVendas extends javax.swing.JPanel {
 
         jLabel7.setText("Produtos selecionados");
 
-        jLabel8.setText("Valor Total");
+        lbTotal.setText("Valor Total");
 
-        jButton1.setBackground(new java.awt.Color(0, 153, 255));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Vender");
-
-        jButton2.setBackground(new java.awt.Color(255, 0, 0));
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Cancelar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btVender.setBackground(new java.awt.Color(0, 153, 255));
+        btVender.setForeground(new java.awt.Color(255, 255, 255));
+        btVender.setText("Vender");
+        btVender.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btVenderActionPerformed(evt);
             }
         });
+
+        btCancelar.setBackground(new java.awt.Color(255, 0, 0));
+        btCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        btCancelar.setText("Cancelar");
+        btCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCancelarActionPerformed(evt);
+            }
+        });
+
+        lbTotalSemIva.setText("Valor Total");
+
+        lbIva.setText("Valor Total");
+
+        jLabel2.setText("IVA");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 679, Short.MAX_VALUE)
             .addComponent(jScrollPane2)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
@@ -305,16 +339,22 @@ public class FormularioVendas extends javax.swing.JPanel {
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel8))
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(btVender, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel6)
+                                            .addComponent(jLabel1)
+                                            .addComponent(jLabel2))
+                                        .addGap(59, 59, 59)
+                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(lbTotalSemIva)
+                                                .addComponent(lbTotal))
+                                            .addComponent(lbIva))))))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(6, 6, 6))
         );
@@ -329,26 +369,33 @@ public class FormularioVendas extends javax.swing.JPanel {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tfQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel8))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
+                                .addComponent(jLabel6))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(lbIva)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lbTotalSemIva)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lbTotal)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
+                        .addComponent(btVender)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btCancelar)
                         .addGap(24, 24, 24)))
                 .addComponent(tfPesquisarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfPesquisarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
                 .addGap(13, 13, 13))
         );
 
@@ -404,10 +451,10 @@ public class FormularioVendas extends javax.swing.JPanel {
 //        selectedProduto.setId(Long.parseLong(tabelaProduto.getValueAt(selectedRow, 0).toString()));
 //        selectedProduto.setQuantidade(Integer.parseInt(tabelaProduto.getValueAt(selectedRow, 3).toString()));
 //        selectedProduto.setNome(tabelaProduto.getValueAt(selectedRow, 1).toString());
-        
-        long id = (long) tabelaProduto.getValueAt(tabela.getSelectedRow(), 0);
 
-        selectedProduto = (Produto) new GenericController().buscaId(Produto.class, id);
+        long id = (long) tabelaProduto.getValueAt(tabelaProduto.getSelectedRow(), 0);
+
+        Produto selectedProduto = (Produto) new GenericController().buscaId(Produto.class, id);
 
         boolean naoContem = true;
         for (Produto produtoSelecionado : produtosSelecionados) {
@@ -433,21 +480,61 @@ public class FormularioVendas extends javax.swing.JPanel {
         setQuantidade();
     }//GEN-LAST:event_tabelaProdutosSeleccionadosKeyReleased
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
         // TODO add your handling code here:
         produtosSelecionados = new ArrayList<Produto>();
         actualizarTabelaProdutosSelecionados();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btCancelarActionPerformed
+
+    private void btVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVenderActionPerformed
+        // TODO add your handling code here:
+        int linhas = tabelaProdutosSeleccionados.getRowCount();
+        Date dataVenda = new Date();
+
+        for (int i = 0; i < linhas; i++) {
+            int quantidade += Integer.parseInt(tabelaProdutosSeleccionados.getValueAt(i, 3).toString());
+
+            int total = (Integer.parseInt(tabelaProdutosSeleccionados.getValueAt(i, 3).toString())
+                    * Double.parseDouble(tabelaProdutosSeleccionados.getValueAt(i, 5).toString()));
+
+
+            
+            //Seleccionar Produto
+            long id = (long) tabelaProdutosSeleccionados.getValueAt(tabelaProdutosSeleccionados.getSelectedRow(), 0);
+            Produto selectedProduto = (Produto) new GenericController().buscaId(Produto.class, id);
+            
+            //Instanciar a Venda
+            Venda venda = new Venda();
+            
+            venda.setCliente(selectedCliente);
+            venda.setUsuario(new Usuario());
+            venda.setProduto(selectedProduto);
+            venda.setTotalDavenda(total);
+            
+            new GenericController().add(venda);
+            
+           
+
+        }
+    }//GEN-LAST:event_btVenderActionPerformed
+
+    private void tabelaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaClienteMouseClicked
+        // TODO add your handling code here:
+
+        long id = (long) tabelaCliente.getValueAt(tabelaCliente.getSelectedRow(), 0);
+
+        selectedCliente = (Cliente) new GenericController().buscaId(Cliente.class, id);
+    }//GEN-LAST:event_tabelaClienteMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btCancelar;
+    private javax.swing.JButton btVender;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -456,6 +543,9 @@ public class FormularioVendas extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel lbIva;
+    private javax.swing.JLabel lbTotal;
+    private javax.swing.JLabel lbTotalSemIva;
     private javax.swing.JTable tabelaCliente;
     private javax.swing.JTable tabelaProduto;
     private javax.swing.JTable tabelaProdutosSeleccionados;
