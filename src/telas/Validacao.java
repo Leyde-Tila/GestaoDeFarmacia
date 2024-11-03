@@ -6,6 +6,7 @@
 package telas;
 
 //import com.sun.glass.events.KeyEvent;
+import Model.Usuario;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.TextField;
@@ -20,7 +21,7 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author Ernesto Argentina
+ * @author Leide tila
  */
 public class Validacao {
         public static String idioma="portugues";
@@ -32,6 +33,8 @@ public class Validacao {
         public static String frameSucess="false";
         public static String frameDadosCliente="false";
         public static String mensagem="";
+        public static Usuario usuario;
+
 
     static boolean verificarEmail(JFormattedTextField tf, JLabel lbEmail) {
          if (tf.getText().toString().contains("@") && tf.getText().toString().contains(".")
