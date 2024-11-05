@@ -5,6 +5,7 @@
 package Model;
 
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,6 +17,10 @@ import javax.persistence.Id;
 @Entity
 public class Produto {
 
+    public static void salvarProdutosEmArquivo(List<Produto> produtos) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     @Id
     @GeneratedValue
     private long id;
@@ -26,8 +31,16 @@ public class Produto {
     private Date dataDeEntrada;
     private Date dataDeVencimento;
      private double preco;
-    
+    private String classificacao;
 
+    public String getClassificacao() {
+        return classificacao;
+    }
+
+    public void setClassificacao(String classificacao) {
+        this.classificacao = classificacao;
+    }
+    
     public long getId() {
         return id;
     }

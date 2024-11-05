@@ -7,6 +7,7 @@ package telas;
 import telas.FormularioVendas;
 import telas.FormularioProdutos;
 import telas.FormularioCadastrarCliente;
+import static telas.Validacao.usuario;
 
 /**
  *
@@ -19,8 +20,30 @@ public class TelaInicial extends javax.swing.JFrame {
      */
     public TelaInicial() {
         initComponents();
-
-        PainelPrincipal.add(new FormularioCadastrarCliente());
+        
+        
+        
+        if (Validacao.usuario.getCategoria().equalsIgnoreCase("Administrador")) {
+             titulo.setText("CLIENTE");
+                        PainelPrincipal.add(new FormularioCadastrarCliente());
+        } else {
+            if (Validacao.usuario.getCategoria().equalsIgnoreCase("Supervisor")){
+                 titulo.setText("PRODUTOS");
+                 btVendas.setVisible(false);
+                btClientes.setVisible(false);
+                PainelPrincipal.add(new FormularioProdutos());
+            }else{
+                 titulo.setText("VENDAS");
+                btnUsuario.setVisible(false);
+                btProdutos.setVisible(false);
+                PainelPrincipal.add(new FormularioVendas());
+            }
+            
+        }
+        
+        
+          titulo.setText("Dashboard");
+                        PainelPrincipal.add(new FormularioRelatorio());
     }
 
     /**
@@ -35,9 +58,10 @@ public class TelaInicial extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btClientes = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btProdutos = new javax.swing.JButton();
+        btVendas = new javax.swing.JButton();
         btnUsuario = new javax.swing.JButton();
+        btnUsuario1 = new javax.swing.JButton();
         PainelTitulo = new javax.swing.JPanel();
         titulo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -46,9 +70,9 @@ public class TelaInicial extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
-        jPanel1.setBackground(new java.awt.Color(240, 240, 240));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel2.setBackground(new java.awt.Color(0, 102, 255));
+        jPanel2.setBackground(new java.awt.Color(102, 204, 0));
 
         btClientes.setText("Clientes");
         btClientes.addActionListener(new java.awt.event.ActionListener() {
@@ -57,17 +81,17 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Produtos");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btProdutos.setText("Produtos");
+        btProdutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btProdutosActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Vendas");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btVendas.setText("Vendas");
+        btVendas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btVendasActionPerformed(evt);
             }
         });
 
@@ -78,6 +102,13 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
+        btnUsuario1.setText("Fornecedor");
+        btnUsuario1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsuario1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -85,10 +116,11 @@ public class TelaInicial extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btVendas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-                    .addComponent(btnUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btProdutos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                    .addComponent(btnUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnUsuario1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -97,15 +129,17 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addComponent(btClientes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(btProdutos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(btVendas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnUsuario)
-                .addContainerGap(275, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnUsuario1)
+                .addContainerGap(240, Short.MAX_VALUE))
         );
 
-        PainelTitulo.setBackground(new java.awt.Color(255, 255, 255));
+        PainelTitulo.setBackground(new java.awt.Color(102, 204, 0));
 
         titulo.setText("CLIENTES");
 
@@ -114,19 +148,19 @@ public class TelaInicial extends javax.swing.JFrame {
         PainelTituloLayout.setHorizontalGroup(
             PainelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PainelTituloLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(295, 295, 295)
+                .addComponent(titulo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PainelTituloLayout.setVerticalGroup(
             PainelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PainelTituloLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PainelTituloLayout.createSequentialGroup()
+                .addContainerGap(22, Short.MAX_VALUE)
+                .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        PainelPrincipal.setBackground(new java.awt.Color(245, 245, 245));
+        PainelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
         PainelPrincipal.setLayout(new java.awt.GridLayout(1, 0));
         jScrollPane1.setViewportView(PainelPrincipal);
 
@@ -136,12 +170,11 @@ public class TelaInicial extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PainelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jScrollPane1)
-                        .addContainerGap())))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
+                    .addComponent(PainelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,7 +202,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btClientesActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProdutosActionPerformed
         // TODO add your handling code here:
         titulo.setText("PRODUTOS");
         titulo.removeAll();
@@ -178,9 +211,9 @@ public class TelaInicial extends javax.swing.JFrame {
         this.repaint();
         this.revalidate();
 
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btProdutosActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVendasActionPerformed
         // TODO add your handling code here:
         titulo.setText("VENDAS");
         titulo.removeAll();
@@ -189,7 +222,7 @@ public class TelaInicial extends javax.swing.JFrame {
         this.repaint();
         this.revalidate();
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btVendasActionPerformed
 
     private void btnUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuarioActionPerformed
         // TODO add your handling code here:
@@ -200,8 +233,18 @@ public class TelaInicial extends javax.swing.JFrame {
         this.repaint();
         this.revalidate();
 
-                           
+
     }//GEN-LAST:event_btnUsuarioActionPerformed
+
+    private void btnUsuario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuario1ActionPerformed
+        // TODO add your handling code here:
+         titulo.setText("Fornecedor");
+        titulo.removeAll();
+        PainelPrincipal.removeAll();
+        PainelPrincipal.add(new FormularioFornecedor());
+        this.repaint();
+        this.revalidate();
+    }//GEN-LAST:event_btnUsuario1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -242,9 +285,10 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JPanel PainelPrincipal;
     private javax.swing.JPanel PainelTitulo;
     private javax.swing.JButton btClientes;
+    private javax.swing.JButton btProdutos;
+    private javax.swing.JButton btVendas;
     private javax.swing.JButton btnUsuario;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnUsuario1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

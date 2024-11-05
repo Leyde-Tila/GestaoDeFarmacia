@@ -4,6 +4,7 @@
  */
 package Model;
 
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -20,17 +21,25 @@ public class Cliente {
   private String nome;
   private String telefone;
   private String morada;
+  private Date anoNascimento;
+  private String alergia;
+  private String descricao;
 
     public Cliente() {
     }
 
-    public Cliente(long id, String nome, String telefone, String morada) {
+  
+    public Cliente(long id, String nome, String telefone, String morada, Date anoNascimento, String alergia, String descricao) {
         this.id = id;
         this.nome = nome;
         this.telefone = telefone;
         this.morada = morada;
+        this.anoNascimento = anoNascimento;
+        this.alergia = alergia;
+        this.descricao = descricao;
     }
 
+   
     public long getId() {
         return id;
     }
@@ -61,6 +70,30 @@ public class Cliente {
 
     public void setMorada(String morada) {
         this.morada = morada;
+    }
+
+    public Date getAnoNascimento() {
+        return anoNascimento;
+    }
+
+    public void setAnoNascimento(Date anoNascimento) {
+        this.anoNascimento = anoNascimento;
+    }
+
+    public String getAlergia() {
+        return alergia;
+    }
+
+    public void setAlergia(String alergia) {
+        this.alergia = alergia;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
   
   

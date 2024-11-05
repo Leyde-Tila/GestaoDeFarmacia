@@ -33,6 +33,8 @@ public class FormularioVendas extends javax.swing.JPanel {
         actualizarTabelaCliente();
         actualizarTabelaProdutosSelecionados();
 
+        actualizarTabelaVendas();
+
         placeHolder();
     }
 
@@ -69,6 +71,34 @@ public class FormularioVendas extends javax.swing.JPanel {
         }
 
         tabelaProduto.setModel(model);
+
+    }
+
+    private void actualizarTabelaVendas() {
+
+        List<Venda> lista = (List<Venda>) new GenericController().listar(Venda.class);
+
+        DefaultTableModel model = (DefaultTableModel) tabelaVendas.getModel();
+        model.setColumnIdentifiers(new String[]{
+            "ID", "Comprado Por", "Vendido Por", "Quantidade", "Nome do produto", "Data"
+        });
+        model.setRowCount(0);
+
+        // Adiciona cada cliente na tabela usando um loop 'for' tradicional
+        for (Venda venda : lista) {
+//            if (produto.getNome().toLowerCase().startsWith(tfPesquisarProduto.getText().toLowerCase())
+//                    || tfPesquisarProduto.getText().equalsIgnoreCase("Pesquisar Produto")) {
+            model.addRow(new Object[]{
+                venda.getId(), // ID do cliente
+                venda.getCliente() != null ? venda.getCliente().getNome() : "---", // Nome do cliente
+                venda.getUsuario() != null ? venda.getUsuario().getNome() : "---",
+                venda.getQuantidade(), // Telefone do cliente
+                venda.getProduto().getNome(), // Morada do cliente (endereço)
+                venda.getDataHoraCriacao(),});
+//            }
+        }
+
+        tabelaVendas.setModel(model);
 
     }
 
@@ -179,6 +209,8 @@ public class FormularioVendas extends javax.swing.JPanel {
         lbIva = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tabelaVendas = new javax.swing.JTable();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -193,7 +225,7 @@ public class FormularioVendas extends javax.swing.JPanel {
 
         setLayout(new java.awt.GridLayout(1, 0));
 
-        jPanel1.setLayout(new java.awt.GridLayout());
+        jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel3.setText("Quantidade");
 
@@ -321,7 +353,7 @@ public class FormularioVendas extends javax.swing.JPanel {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 679, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addComponent(jScrollPane2)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
@@ -403,15 +435,31 @@ public class FormularioVendas extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Nova Venda", jPanel1);
 
+        tabelaVendas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane4.setViewportView(tabelaVendas);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 679, Short.MAX_VALUE)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 679, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 521, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(73, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
         );
 
         jTabbedPane1.addTab("Lista", jPanel3);
@@ -497,27 +545,27 @@ public class FormularioVendas extends javax.swing.JPanel {
             Double total = (Integer.parseInt(tabelaProdutosSeleccionados.getValueAt(i, 3).toString())
                     * Double.parseDouble(tabelaProdutosSeleccionados.getValueAt(i, 5).toString()));
 
-
-            
             //Seleccionar Produto
             long id = (long) tabelaProdutosSeleccionados.getValueAt(i, 0);
             Produto selectedProduto = (Produto) new GenericController().buscaId(Produto.class, id);
-            
+
             //Instanciar a Venda
             Venda venda = new Venda();
-            
+
             venda.setCliente(selectedCliente);
-            //venda.setUsuario(new Usuario());
+            venda.setUsuario(Validacao.usuario);
             venda.setProduto(selectedProduto);
             venda.setTotalDavenda(total);
             venda.setQuantidade(quantidade);
             venda.setDataHoraCriacao(dataVenda);
 
             new GenericController().add(venda);
-            
-           
 
         }
+
+        produtosSelecionados = new ArrayList<Produto>();
+        actualizarTabelaProdutosSelecionados();
+        actualizarTabelaVendas();
     }//GEN-LAST:event_btVenderActionPerformed
 
     private void tabelaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaClienteMouseClicked
@@ -544,6 +592,7 @@ public class FormularioVendas extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lbIva;
     private javax.swing.JLabel lbTotal;
@@ -551,6 +600,7 @@ public class FormularioVendas extends javax.swing.JPanel {
     private javax.swing.JTable tabelaCliente;
     private javax.swing.JTable tabelaProduto;
     private javax.swing.JTable tabelaProdutosSeleccionados;
+    private javax.swing.JTable tabelaVendas;
     private javax.swing.JTextField tfPesquisarCliente;
     private javax.swing.JTextField tfPesquisarProduto;
     private javax.swing.JTextField tfQuantidade;

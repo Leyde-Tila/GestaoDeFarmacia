@@ -28,6 +28,8 @@ public class FormularioProdutos extends javax.swing.JPanel {
     public FormularioProdutos() {
         initComponents();
         actualizarTabela();
+        hint();
+        idioma();
     }
 
     /**
@@ -39,23 +41,29 @@ public class FormularioProdutos extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jComboBox1 = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
         lbNome = new javax.swing.JLabel();
         tfNome = new javax.swing.JTextField();
         tfQuantidade = new javax.swing.JTextField();
         tfFornecedor = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lbQuantidade = new javax.swing.JLabel();
+        lbFornecedor = new javax.swing.JLabel();
         tfCategoria = new javax.swing.JComboBox<>();
         btnAdicionar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        lbCategoria = new javax.swing.JLabel();
+        btnEliminar = new javax.swing.JButton();
         dataVencimento = new javax.swing.JFormattedTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        lbData = new javax.swing.JLabel();
+        lbPreco = new javax.swing.JLabel();
         tfPreco = new javax.swing.JTextField();
+        btIdioma = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        tfClassificacao = new javax.swing.JComboBox<>();
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -77,9 +85,20 @@ public class FormularioProdutos extends javax.swing.JPanel {
 
         lbNome.setText("Nome");
 
+        tfNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfNomeKeyPressed(evt);
+            }
+        });
+
         tfQuantidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfQuantidadeActionPerformed(evt);
+            }
+        });
+        tfQuantidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfQuantidadeKeyPressed(evt);
             }
         });
 
@@ -89,11 +108,11 @@ public class FormularioProdutos extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setText("Quantidade");
+        lbQuantidade.setText("Quantidade");
 
-        jLabel3.setText("Fornecedor");
+        lbFornecedor.setText("Fornecedor");
 
-        tfCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Medicação com prescrição", "Medicamentos de Venda Livre", "Item 3", "Item 4" }));
+        tfCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Medicação com prescrição", "Medicamentos de Venda Livre" }));
         tfCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfCategoriaActionPerformed(evt);
@@ -118,25 +137,62 @@ public class FormularioProdutos extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setText("Categoria");
+        lbCategoria.setText("Categoria");
 
-        jButton1.setBackground(new java.awt.Color(255, 0, 0));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Eliminar");
+        btnEliminar.setBackground(new java.awt.Color(255, 0, 0));
+        btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEliminarMouseClicked(evt);
+            }
+        });
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         dataVencimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dataVencimentoActionPerformed(evt);
             }
         });
+        dataVencimento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                dataVencimentoKeyPressed(evt);
+            }
+        });
 
-        jLabel4.setText("Data Vencimento");
+        lbData.setText("Data Vencimento");
 
-        jLabel5.setText("Preço");
+        lbPreco.setText("Preço");
 
         tfPreco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfPrecoActionPerformed(evt);
+            }
+        });
+        tfPreco.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfPrecoKeyPressed(evt);
+            }
+        });
+
+        btIdioma.setBackground(new java.awt.Color(0, 153, 0));
+        btIdioma.setText("Mudar Idioma");
+        btIdioma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btIdiomaActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Classificacao");
+
+        tfClassificacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Analgesicos", "Antibioticos", "Antivirais ", "Anti-inflamatórios ", "Anti-depressivos ", "Anti-hipertensivos" }));
+        tfClassificacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfClassificacaoActionPerformed(evt);
             }
         });
 
@@ -147,76 +203,81 @@ public class FormularioProdutos extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfNome)
-                            .addComponent(lbNome, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(15, 15, 15)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbNome, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbData)
+                    .addComponent(lbPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(52, 52, 52)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(tfFornecedor, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
+                    .addComponent(tfPreco)
+                    .addComponent(tfNome)
+                    .addComponent(tfQuantidade, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dataVencimento))
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabel1)
-                            .addComponent(tfCategoria, 0, 1, Short.MAX_VALUE))
-                        .addGap(9, 9, 9))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGap(136, 136, 136))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(tfCategoria, javax.swing.GroupLayout.Alignment.LEADING, 0, 1, Short.MAX_VALUE)
+                                .addComponent(tfClassificacao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGap(21, 21, 21)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 294, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(tfPreco, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 98, Short.MAX_VALUE))
-                                    .addComponent(tfFornecedor, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(dataVencimento, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap())
+                        .addComponent(lbCategoria)
+                        .addGap(153, 153, 153)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAdicionar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btIdioma, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(117, 117, 117))
+            .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbNome)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnAdicionar)
+                    .addComponent(lbCategoria))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tfQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbQuantidade))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tfCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnEliminar)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAdicionar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEditar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
+                        .addGap(6, 6, 6)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tfFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dataVencimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel5)
-                        .addGap(0, 0, 0)
-                        .addComponent(tfPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE))
+                            .addComponent(jLabel1)
+                            .addComponent(btnEditar))
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(dataVencimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfClassificacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btIdioma))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(lbFornecedor)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lbData)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lbPreco)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -257,6 +318,7 @@ public class FormularioProdutos extends javax.swing.JPanel {
         produto.setDataDeEntrada(new Date());
         produto.setFornecedor(tfFornecedor.getText());
         produto.setCategoria(tfCategoria.getSelectedItem().toString());
+        produto.setClassificacao(tfClassificacao.getSelectedItem().toString());
         produto.setQuantidade(Integer.parseInt(tfQuantidade.getText()));
         produto.setPreco(Double.parseDouble(tfPreco.getText()));
 
@@ -281,6 +343,7 @@ public class FormularioProdutos extends javax.swing.JPanel {
         // produto.setDataDeVencimento(new Date());
         produto.setFornecedor(tfFornecedor.getText());
         produto.setCategoria(tfCategoria.getSelectedItem().toString());
+         produto.setClassificacao(tfClassificacao.getSelectedItem().toString());
         produto.setQuantidade(Integer.parseInt(tfQuantidade.getText()));
         produto.setPreco(Double.parseDouble(tfPreco.getText()));
 
@@ -301,21 +364,63 @@ public class FormularioProdutos extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfPrecoActionPerformed
 
+    private void btIdiomaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIdiomaActionPerformed
+        // TODO add your handling code here:
+      idioma();
+    }//GEN-LAST:event_btIdiomaActionPerformed
+
+    private void tfQuantidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfQuantidadeKeyPressed
+        // TODO add your handling code here:
+         Validacao.permitirApenasNumero(evt, tfQuantidade);
+    }//GEN-LAST:event_tfQuantidadeKeyPressed
+
+    private void tfNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNomeKeyPressed
+        // TODO add your handling code here:
+        Validacao.naoAceitarNumeros(evt, tfNome);
+    }//GEN-LAST:event_tfNomeKeyPressed
+
+    private void tfPrecoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPrecoKeyPressed
+        // TODO add your handling code here:
+         Validacao.permitirApenasNumero(evt, tfPreco);
+    }//GEN-LAST:event_tfPrecoKeyPressed
+
+    private void dataVencimentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dataVencimentoKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dataVencimentoKeyPressed
+
+    private void tfClassificacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfClassificacaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfClassificacaoActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        new GenericController().removeFisico(Produto.class,produto.getId());
+         actualizarTabela();
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btIdioma;
     private javax.swing.JButton btnAdicionar;
     private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JFormattedTextField dataVencimento;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbCategoria;
+    private javax.swing.JLabel lbData;
+    private javax.swing.JLabel lbFornecedor;
     private javax.swing.JLabel lbNome;
+    private javax.swing.JLabel lbPreco;
+    private javax.swing.JLabel lbQuantidade;
     private javax.swing.JTable tabela;
     private javax.swing.JComboBox<String> tfCategoria;
+    private javax.swing.JComboBox<String> tfClassificacao;
     private javax.swing.JTextField tfFornecedor;
     private javax.swing.JTextField tfNome;
     private javax.swing.JTextField tfPreco;
@@ -327,7 +432,7 @@ public class FormularioProdutos extends javax.swing.JPanel {
 
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
         model.setColumnIdentifiers(new String[]{
-            "ID", "Nome", "Categoria", "Quantidade", "Fornecedor", "Data Entrada", "Data Vencimento", "Preço"
+            "ID", "Nome", "Categoria","Classificaçao", "Fornecedor", "Quantidade", "Preço", "Data Entrada","Data Vencimento" 
         });
         model.setRowCount(0);
 
@@ -337,14 +442,33 @@ public class FormularioProdutos extends javax.swing.JPanel {
                 produto.getId(), // ID do cliente
                 produto.getNome(), // Nome do cliente
                 produto.getCategoria(),
-                produto.getQuantidade(), // Telefone do cliente
+                produto.getClassificacao(),
                 produto.getFornecedor(), // Morada do cliente (endereço)
+                produto.getQuantidade(), // Telefone do cliente
+                produto.getPreco(),
                 produto.getDataDeEntrada(),
                 produto.getDataDeVencimento(),
-                produto.getPreco(),});
+            });
         }
 
         tabela.setModel(model);
 
     }
+
+    private void hint() {
+        Validacao.setarHint(tfNome, "ex: Paracetamol");
+        Validacao.setarHint(tfFornecedor, "ex: Azevedos");
+        Validacao.setarHint(tfQuantidade, "ex: 1000000");
+        Validacao.setarHint(tfPreco, "ex: 500000");
+
+    }
+
+    private void idioma() {
+        Validacao.setarLinguaLabel(lbNome, "Nome", "Name");
+        Validacao.setarLinguaLabel(lbData, "Data", "Date");
+        Validacao.setarLinguaLabel(lbFornecedor, "Fornecedor", "Gender");
+        Validacao.setarLinguaLabel(lbPreco, "Preco", "Price");
+        Validacao.setarLinguaLabel(lbQuantidade, "Quantidade", "Quantitity");
+    }
+
 }

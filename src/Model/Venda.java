@@ -140,5 +140,13 @@ public class Venda {
     public void setUltimaActualizacao(Date ultimaActualizacao) {
         this.ultimaActualizacao = ultimaActualizacao;
     }
+
+    public int getIdProduto() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public Object getData() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
  
 }

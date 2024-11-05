@@ -34,6 +34,7 @@ public class Validacao {
         public static String frameDadosCliente="false";
         public static String mensagem="";
         public static Usuario usuario;
+ static FicheiroLinguas fi=new FicheiroLinguas();
 
 
     static boolean verificarEmail(JFormattedTextField tf, JLabel lbEmail) {
@@ -49,7 +50,7 @@ public class Validacao {
            return true;
         }
     }
-    static boolean verificarNomeCompleto(JFormattedTextField tf, JLabel nomeC) {
+    static boolean verificarNomeCompleto(JTextField tf, JLabel nomeC) {
          if (tf.getText().toString().trim().contains(" ")) {
            nomeC.setForeground(Color.BLUE);
           return false;
@@ -57,6 +58,15 @@ public class Validacao {
           nomeC.setForeground(Color.RED);
            return true;
         }
+    }
+
+    static void setarLinguaLabel(JLabel lb,String pt,String en) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if(fi.ler().equalsIgnoreCase("portugues"))
+                lb.setText(pt);
+            if(fi.ler().equalsIgnoreCase("ingles"))
+                lb.setText(en); 
+        
     }
 
 
@@ -303,7 +313,7 @@ public class Validacao {
  * @param evt
  * @param tfP 
  */
-    public  static void proximoFocu(java.awt.event.KeyEvent evt, JTextField tfP) {
+    public  static void proximoFocu(KeyEvent evt, JTextField tfP) {
           if(evt.getKeyCode()==KeyEvent.VK_ENTER){
               tfP.requestFocus(); 
           }

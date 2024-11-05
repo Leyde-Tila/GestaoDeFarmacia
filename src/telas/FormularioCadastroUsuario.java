@@ -8,6 +8,7 @@ import DAO.GenericController;
 import Model.Usuario;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import static telas.Validacao.usuario;
 
 /**
  *
@@ -20,6 +21,8 @@ public class FormularioCadastroUsuario extends javax.swing.JPanel {
      */
     public FormularioCadastroUsuario() {
         initComponents();
+        actualizarTabela();
+        hint();
     }
 
     /**
@@ -43,11 +46,16 @@ public class FormularioCadastroUsuario extends javax.swing.JPanel {
         tfSenha = new javax.swing.JTextField();
         btnAdicionar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        lbNome = new javax.swing.JLabel();
 
         btnEditar.setBackground(new java.awt.Color(255, 102, 51));
         btnEditar.setForeground(new java.awt.Color(255, 255, 255));
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Nome de usuario");
 
@@ -63,6 +71,17 @@ public class FormularioCadastroUsuario extends javax.swing.JPanel {
         tfUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfUsuarioActionPerformed(evt);
+            }
+        });
+        tfUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfUsuarioKeyPressed(evt);
+            }
+        });
+
+        tfNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfNomeKeyPressed(evt);
             }
         });
 
@@ -91,6 +110,11 @@ public class FormularioCadastroUsuario extends javax.swing.JPanel {
                 tfSenhaActionPerformed(evt);
             }
         });
+        tfSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfSenhaKeyPressed(evt);
+            }
+        });
 
         btnAdicionar.setBackground(new java.awt.Color(0, 102, 204));
         btnAdicionar.setForeground(new java.awt.Color(255, 255, 255));
@@ -110,7 +134,7 @@ public class FormularioCadastroUsuario extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setText("Nome");
+        lbNome.setText("Nome");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -119,10 +143,12 @@ public class FormularioCadastroUsuario extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                        .addGap(6, 6, 6))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
+                            .addComponent(lbNome)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
@@ -131,7 +157,7 @@ public class FormularioCadastroUsuario extends javax.swing.JPanel {
                             .addComponent(tfCategoria, 0, 0, Short.MAX_VALUE)
                             .addComponent(tfSenha, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tfNome, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE))
+                            .addComponent(tfUsuario))
                         .addGap(46, 46, 46)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnEditar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -144,14 +170,14 @@ public class FormularioCadastroUsuario extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdicionar))
+                    .addComponent(lbNome)
+                    .addComponent(btnAdicionar)
+                    .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEditar)
-                    .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -162,8 +188,8 @@ public class FormularioCadastroUsuario extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -205,22 +231,53 @@ public class FormularioCadastroUsuario extends javax.swing.JPanel {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
+        new GenericController().removeFisico(Usuario.class, usuario.getId());
+        actualizarTabela();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void tfCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCategoriaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfCategoriaActionPerformed
 
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+        usuario.setNome(tfNome.getText());
+        usuario.setUsuario(tfUsuario.getText());
+        usuario.setCategoria(tfCategoria.getSelectedItem().toString());
+        usuario.setSenha(tfSenha.getText());
+
+        new GenericController().atualizarPorId(Usuario.class, usuario.getId(), usuario);
+
+        actualizarTabela();
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void tfNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNomeKeyPressed
+        // TODO add your handling code here:
+        Validacao.naoAceitarNumeros(evt, tfNome);
+        Validacao.proximoFocu(evt, tfUsuario);
+        Validacao.verificarNomeCompleto(tfNome, lbNome);
+    }//GEN-LAST:event_tfNomeKeyPressed
+
+    private void tfUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfUsuarioKeyPressed
+        // TODO add your handling code here:
+                 Validacao.proximoFocu(evt, tfSenha);
+
+    }//GEN-LAST:event_tfUsuarioKeyPressed
+
+    private void tfSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfSenhaKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfSenhaKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbNome;
     private javax.swing.JTable tabela;
     private javax.swing.JComboBox<String> tfCategoria;
     private javax.swing.JTextField tfNome;
@@ -228,7 +285,7 @@ public class FormularioCadastroUsuario extends javax.swing.JPanel {
     private javax.swing.JTextField tfUsuario;
     // End of variables declaration//GEN-END:variables
 
-      private void actualizarTabela() {
+    private void actualizarTabela() {
 
         List<Usuario> lista = (List<Usuario>) new GenericController().listar(Usuario.class);
 
@@ -245,11 +302,17 @@ public class FormularioCadastroUsuario extends javax.swing.JPanel {
                 usuario.getNome(), // Nome do cliente
                 usuario.getUsuario(), // Telefone do cliente
                 usuario.getCategoria()// Morada do cliente (endereço)
-                
+
             });
         }
 
         tabela.setModel(model);
     }
 
+    private void hint() {
+        Validacao.setarHint(tfNome, "ex: Leide Tila");
+        Validacao.setarHint(tfUsuario, "ex: leide Tila");
+        Validacao.setarHint(tfSenha, "ex: tila123@");
+
+    }
 }

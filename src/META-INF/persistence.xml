@@ -7,6 +7,7 @@
     <class>Model.Produto</class>
     <class>Model.Venda</class>
     <class>Model.Usuario</class>
+    <class>Model.Fornecedor</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/gestao_de_farmacia?serverTimezone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

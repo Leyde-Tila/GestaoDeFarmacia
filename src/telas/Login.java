@@ -20,6 +20,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        setarHint();
     }
 
     /**
@@ -205,4 +206,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JTextField tfUsuario;
     // End of variables declaration//GEN-END:variables
 
+    private void setarHint() {
+        Validacao.setarHint(tfUsuario, "ex: Leide Tila");
+    }
 }
