@@ -20,15 +20,15 @@ public class Fornecedor {
     private int id;
     private String nome;
     private String endereço;
-    private int nuit;
-    private int nib;
+    private String nuit;
+    private String nib;
     private String email;
-    private int telefone;
+    private String telefone;
 
     public Fornecedor() {
     }
 
-    public Fornecedor(int id, String nome, String endereço, int nuit, int nib, String email, int telefone) {
+    public Fornecedor(int id, String nome, String endereço, String nuit, String nib, String email, String telefone) {
         this.id = id;
         this.nome = nome;
         this.endereço = endereço;
@@ -36,8 +36,8 @@ public class Fornecedor {
         this.nib = nib;
         this.email = email;
         this.telefone = telefone;
-    }
-
+    
+}
     public int getId() {
         return id;
     }
@@ -62,19 +62,19 @@ public class Fornecedor {
         this.endereço = endereço;
     }
 
-    public int getNuit() {
+    public String getNuit() {
         return nuit;
     }
 
-    public void setNuit(int nuit) {
+    public void setNuit(String nuit) {
         this.nuit = nuit;
     }
 
-    public int getNib() {
+    public String getNib() {
         return nib;
     }
 
-    public void setNib(int nib) {
+    public void setNib(String nib) {
         this.nib = nib;
     }
 
@@ -86,13 +86,14 @@ public class Fornecedor {
         this.email = email;
     }
 
-    public int getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(int telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
+
     
     
 }

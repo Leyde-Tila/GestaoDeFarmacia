@@ -42,8 +42,8 @@ public class TelaInicial extends javax.swing.JFrame {
         }
         
         
-          titulo.setText("Dashboard");
-                        PainelPrincipal.add(new FormularioRelatorio());
+         // titulo.setText("Dashboard");
+         //               PainelPrincipal.add(new FormularioRelatorio());
     }
 
     /**
@@ -160,7 +160,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        PainelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
+        PainelPrincipal.setBackground(new java.awt.Color(0, 0, 204));
         PainelPrincipal.setLayout(new java.awt.GridLayout(1, 0));
         jScrollPane1.setViewportView(PainelPrincipal);
 

@@ -61,50 +61,41 @@ public class FormularioRelatorio extends javax.swing.JPanel {
 
         for (Venda ve : lista) {
             System.out.println(ve);
-            String data = sdf.format(ve.getDataHoraCriacao()!=null?ve.getDataHoraCriacao():new Date());
+            String data = sdf.format(ve.getDataHoraCriacao() != null ? ve.getDataHoraCriacao() : new Date());
             System.out.println(data);
-            
-            if (data!=null && data.substring(3, 10).equalsIgnoreCase(mesAno)) {
+
+            if (data != null && data.substring(3, 11).equalsIgnoreCase(mesAno)) {
                 produtosVendidos += 1;
                 lucro += ve.getTotalDavenda();
             }
-            if (data!=null && data.substring(3, 10).equalsIgnoreCase("01/" + ano)) {
-                Janeiro += ve.getTotalDavenda();
+            if (data != null && data.length() >= 10) {  // Verifique o comprimento da string 'data' uma vez
+                if (data.substring(3, 10).equalsIgnoreCase("01/" + ano)) {
+                    Janeiro += ve.getTotalDavenda();
+                } else if (data.substring(3, 10).equalsIgnoreCase("02/" + ano)) {
+                    Fevereiro += ve.getTotalDavenda();
+                } else if (data.substring(3, 10).equalsIgnoreCase("03/" + ano)) {
+                    Marco += ve.getTotalDavenda();
+                } else if (data.substring(3, 10).equalsIgnoreCase("04/" + ano)) {
+                    Abril += ve.getTotalDavenda();
+                } else if (data.substring(3, 10).equalsIgnoreCase("05/" + ano)) {
+                    Maio += ve.getTotalDavenda();
+                } else if (data.substring(3, 10).equalsIgnoreCase("06/" + ano)) {
+                    Junho += ve.getTotalDavenda();
+                } else if (data.substring(3, 10).equalsIgnoreCase("07/" + ano)) {
+                    Julho += ve.getTotalDavenda();
+                } else if (data.substring(3, 10).equalsIgnoreCase("08/" + ano)) {
+                    Agosto += ve.getTotalDavenda();
+                } else if (data.substring(3, 10).equalsIgnoreCase("09/" + ano)) {
+                    Setembro += ve.getTotalDavenda();
+                } else if (data.substring(3, 10).equalsIgnoreCase("10/" + ano)) {
+                    Outubro += ve.getTotalDavenda();
+                } else if (data.substring(3, 10).equalsIgnoreCase("11/" + ano)) {
+                    Novembro += ve.getTotalDavenda();
+                } else if (data.substring(3, 10).equalsIgnoreCase("12/" + ano)) {
+                    Dezembro += ve.getTotalDavenda();
+                }
             }
-            if (data!=null && data.substring(3, 10).equalsIgnoreCase("02/" + ano)) {
-                Fevereiro += ve.getTotalDavenda();
-            }
-            if (data!=null && data.substring(3, 10).equalsIgnoreCase("03/" + ano)) {
-                Marco += ve.getTotalDavenda();
-            }
-            if (data!=null && data.substring(3, 10).equalsIgnoreCase("04/" + ano)) {
-                Abril += ve.getTotalDavenda();
-            }
-            if (data!=null && data.substring(3, 10).equalsIgnoreCase("05/" + ano)) {
-                Maio += ve.getTotalDavenda();
-            }
-            if (data!=null && data.substring(3, 10).equalsIgnoreCase("06/" + ano)) {
-                Junho += ve.getTotalDavenda();
-            }
-            if (data!=null && data.substring(3, 10).equalsIgnoreCase("07/" + ano)) {
-                Julho += ve.getTotalDavenda();
-            }
-            if (data!=null && data.substring(3, 10).equalsIgnoreCase("08/" + ano)) {
-                Agosto += ve.getTotalDavenda();
-            }
-            if (data!=null && data.substring(3, 10).equalsIgnoreCase("09/" + ano)) {
-                Setembro += ve.getTotalDavenda();
-            }
-            if (data!=null && data.substring(3, 10).equalsIgnoreCase("10/" + ano)) {
-                Outubro += ve.getTotalDavenda();
-            }
-            if (data!=null && data.substring(3, 10).equalsIgnoreCase("11/" + ano)) {
-                Novembro += ve.getTotalDavenda();
-            }
-            if (data!=null && data.substring(3, 10).equalsIgnoreCase("12/" + ano)) {
-                Dezembro += ve.getTotalDavenda();
-            }
-//          System.out.println(ve.getData().substring(3, 9));  
+//System.out.println(ve.getData().substring(3, 9));  
         }
         /*  
         lbCarrosVendidos.setText(Integer.toString(CarrosVendidos));

@@ -6,7 +6,7 @@ package telas;
 
 import DAO.GenericController;
 import Model.Fornecedor;
-import Model.Usuario;
+//import Model.Usuario;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import static telas.Validacao.usuario;
@@ -16,6 +16,8 @@ import static telas.Validacao.usuario;
  * @author Leide
  */
 public class FormularioFornecedor extends javax.swing.JPanel {
+
+    private Object fornecedor;
 
     /**
      * Creates new form FormularioCadastroUsuario
@@ -77,6 +79,11 @@ public class FormularioFornecedor extends javax.swing.JPanel {
             }
         });
 
+        tfNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfNomeActionPerformed(evt);
+            }
+        });
         tfNome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 tfNomeKeyPressed(evt);
@@ -258,8 +265,10 @@ public class FormularioFornecedor extends javax.swing.JPanel {
 
         tfNome.setText(fornecedor.getNome());
         tfEndereço.setText(fornecedor.getEndereço());
-        tfNib.setText(fornecedor.getNib()+"");
+        tfNib.setText(fornecedor.getNib());
         tfEmail.setText(fornecedor.getEmail());
+        tfNuit.setText(fornecedor.getNuit());
+        tfTelefone.setText(fornecedor.getTelefone());
 
     }//GEN-LAST:event_tabelaMouseClicked
 
@@ -269,31 +278,37 @@ public class FormularioFornecedor extends javax.swing.JPanel {
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
         // TODO add your handling code here:
-        Usuario usuario = new Usuario();
-        usuario.setNome(tfNome.getText());
-        usuario.setUsuario(tfEndereço.getText());
-        usuario.setCategoria(tfCategoria.getSelectedItem().toString());
-        usuario.setSenha(tfEmail.getText());
-
-        new GenericController().add(usuario);
+        Fornecedor fornecedor = new Fornecedor();
+        fornecedor.setNome(tfNome.getText());
+        fornecedor.setEmail(tfEmail.getText());
+        fornecedor.setEndereço(tfEndereço.getText());
+        fornecedor.setNib(tfNib.getText());
+        fornecedor.setNuit(tfNuit.getText());
+        fornecedor.setTelefone(tfTelefone.getText());
+  
+        
+        new GenericController().add(fornecedor);
 
         actualizarTabela();
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        new GenericController().removeFisico(Usuario.class, usuario.getId());
+   //     new GenericController().removeFisico(Fornecedor.class, fornecedor.getId());
         actualizarTabela();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-        usuario.setNome(tfNome.getText());
-        usuario.setUsuario(tfEndereço.getText());
-        usuario.setCategoria(tfCategoria.getSelectedItem().toString());
-        usuario.setSenha(tfEmail.getText());
-
-        new GenericController().atualizarPorId(Usuario.class, usuario.getId(), usuario);
+       Fornecedor fornecedor = new Fornecedor();
+        fornecedor.setNome(tfNome.getText());
+        fornecedor.setEmail(tfEmail.getText());
+        fornecedor.setEndereço(tfEndereço.getText());
+        fornecedor.setNib(tfNib.getText());
+        fornecedor.setNuit(tfNuit.getText());
+        fornecedor.setTelefone(tfTelefone.getText());
+  
+        new GenericController().atualizarPorId(Fornecedor.class, fornecedor.getId(), fornecedor);
 
         actualizarTabela();
     }//GEN-LAST:event_btnEditarActionPerformed
@@ -302,12 +317,12 @@ public class FormularioFornecedor extends javax.swing.JPanel {
         // TODO add your handling code here:
         Validacao.naoAceitarNumeros(evt, tfNome);
         Validacao.proximoFocu(evt, tfEndereço);
-        Validacao.verificarNomeCompleto(tfNome, lbNome);
+       // Validacao.verificarNomeCompleto(tfNome, lbNome);
     }//GEN-LAST:event_tfNomeKeyPressed
 
     private void tfEndereçoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfEndereçoKeyPressed
         // TODO add your handling code here:
-                 Validacao.proximoFocu(evt, tfEmail);
+        Validacao.proximoFocu(evt, tfEmail);
 
     }//GEN-LAST:event_tfEndereçoKeyPressed
 
@@ -339,6 +354,10 @@ public class FormularioFornecedor extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfTelefoneKeyPressed
 
+    private void tfNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfNomeActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionar;
@@ -362,21 +381,24 @@ public class FormularioFornecedor extends javax.swing.JPanel {
 
     private void actualizarTabela() {
 
-        List<Usuario> lista = (List<Usuario>) new GenericController().listar(Usuario.class);
+        List<Fornecedor> lista = (List<Fornecedor>) new GenericController().listar(Fornecedor.class);
 
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
         model.setColumnIdentifiers(new String[]{
-            "ID", "Nome", "Nome De Usuario", "Categoria"
+            "ID", "Nome", "Email", "Endereço", "NUIT", "NIB", "Telefone"
         });
         model.setRowCount(0);
 
         // Adiciona cada cliente na tabela usando um loop 'for' tradicional
-        for (Usuario usuario : lista) {
+        for (Fornecedor fornecedor : lista) {
             model.addRow(new Object[]{
-                usuario.getId(), // ID do cliente
-                usuario.getNome(), // Nome do cliente
-                usuario.getUsuario(), // Telefone do cliente
-                usuario.getCategoria()// Morada do cliente (endereço)
+                fornecedor.getId(), // ID do cliente
+                fornecedor.getNome(), // Nome do cliente
+                fornecedor.getEmail(), // Telefone do cliente
+                fornecedor.getEndereço(), // Telefone do cliente
+                fornecedor.getNuit(), // Telefone do cliente
+                fornecedor.getNib(), // Telefone do cliente
+                fornecedor.getTelefone()// Morada do cliente (endereço)
 
             });
         }
