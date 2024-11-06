@@ -21,6 +21,7 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         setarHint();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -46,7 +47,7 @@ public class Login extends javax.swing.JFrame {
 
         jLabel2.setText("Senha");
 
-        btnLogin.setBackground(new java.awt.Color(51, 204, 0));
+        btnLogin.setBackground(new java.awt.Color(0, 204, 204));
         btnLogin.setText("LOGIN");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -66,7 +67,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(102, 204, 0));
+        jPanel1.setBackground(new java.awt.Color(0, 204, 204));
 
         jLabel3.setBackground(new java.awt.Color(51, 51, 51));
         jLabel3.setText("  AUTENTICAÇAO");

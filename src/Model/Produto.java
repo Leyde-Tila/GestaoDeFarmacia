@@ -9,6 +9,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -26,12 +27,14 @@ public class Produto {
     private long id;
     private String categoria;
     private String nome;
-    private String fornecedor;
+    //private String fornecedor;
     private int quantidade;
     private Date dataDeEntrada;
     private Date dataDeVencimento;
      private double preco;
     private String classificacao;
+    @ManyToOne
+    private Fornecedor fornecedor;
 
     public String getClassificacao() {
         return classificacao;
@@ -65,14 +68,15 @@ public class Produto {
         this.nome = nome;
     }
 
-    public String getFornecedor() {
+    public Fornecedor getFornecedor() {
         return fornecedor;
     }
 
-    public void setFornecedor(String fornecedor) {
+    public void setFornecedor(Fornecedor fornecedor) {
         this.fornecedor = fornecedor;
     }
 
+  
     public int getQuantidade() {
         return quantidade;
     }

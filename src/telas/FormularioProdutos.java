@@ -5,6 +5,7 @@
 package telas;
 
 import DAO.GenericController;
+import Model.Fornecedor;
 import Model.Produto;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,6 +31,8 @@ public class FormularioProdutos extends javax.swing.JPanel {
         actualizarTabela();
         hint();
         idioma();
+
+        comboboxFornecedores();
     }
 
     /**
@@ -62,6 +65,7 @@ public class FormularioProdutos extends javax.swing.JPanel {
         btIdioma = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         tfClassificacao = new javax.swing.JComboBox<>();
+        cbFornecedores = new javax.swing.JComboBox<>();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -196,6 +200,12 @@ public class FormularioProdutos extends javax.swing.JPanel {
             }
         });
 
+        cbFornecedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbFornecedoresActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -224,7 +234,8 @@ public class FormularioProdutos extends javax.swing.JPanel {
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(tfCategoria, javax.swing.GroupLayout.Alignment.LEADING, 0, 1, Short.MAX_VALUE)
-                                .addComponent(tfClassificacao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(tfClassificacao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cbFornecedores, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGap(21, 21, 21)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lbCategoria)
@@ -267,7 +278,9 @@ public class FormularioProdutos extends javax.swing.JPanel {
                             .addComponent(tfClassificacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btIdioma))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbFornecedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addComponent(lbFornecedor)
@@ -290,7 +303,7 @@ public class FormularioProdutos extends javax.swing.JPanel {
 
         tfNome.setText(produto.getNome());
         tfQuantidade.setText(String.valueOf(produto.getQuantidade()));
-        tfFornecedor.setText(produto.getFornecedor());
+        //tfFornecedor.setText(produto.getFornecedor());
         tfCategoria.setSelectedItem(produto.getCategoria());
         tfPreco.setText(produto.getPreco() + "");
     }//GEN-LAST:event_tabelaMouseClicked
@@ -316,7 +329,7 @@ public class FormularioProdutos extends javax.swing.JPanel {
 
         produto.setNome(tfNome.getText());
         produto.setDataDeEntrada(new Date());
-        produto.setFornecedor(tfFornecedor.getText());
+        produto.setFornecedor((Fornecedor) cbFornecedores.getSelectedItem());
         produto.setCategoria(tfCategoria.getSelectedItem().toString());
         produto.setClassificacao(tfClassificacao.getSelectedItem().toString());
         produto.setQuantidade(Integer.parseInt(tfQuantidade.getText()));
@@ -341,9 +354,9 @@ public class FormularioProdutos extends javax.swing.JPanel {
         produto.setNome(tfNome.getText());
         produto.setDataDeEntrada(new Date());
         // produto.setDataDeVencimento(new Date());
-        produto.setFornecedor(tfFornecedor.getText());
+        produto.setFornecedor((Fornecedor) cbFornecedores.getSelectedItem());
         produto.setCategoria(tfCategoria.getSelectedItem().toString());
-         produto.setClassificacao(tfClassificacao.getSelectedItem().toString());
+        produto.setClassificacao(tfClassificacao.getSelectedItem().toString());
         produto.setQuantidade(Integer.parseInt(tfQuantidade.getText()));
         produto.setPreco(Double.parseDouble(tfPreco.getText()));
 
@@ -366,12 +379,12 @@ public class FormularioProdutos extends javax.swing.JPanel {
 
     private void btIdiomaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIdiomaActionPerformed
         // TODO add your handling code here:
-      idioma();
+        idioma();
     }//GEN-LAST:event_btIdiomaActionPerformed
 
     private void tfQuantidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfQuantidadeKeyPressed
         // TODO add your handling code here:
-         Validacao.permitirApenasNumero(evt, tfQuantidade);
+        Validacao.permitirApenasNumero(evt, tfQuantidade);
     }//GEN-LAST:event_tfQuantidadeKeyPressed
 
     private void tfNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNomeKeyPressed
@@ -381,7 +394,7 @@ public class FormularioProdutos extends javax.swing.JPanel {
 
     private void tfPrecoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPrecoKeyPressed
         // TODO add your handling code here:
-         Validacao.permitirApenasNumero(evt, tfPreco);
+        Validacao.permitirApenasNumero(evt, tfPreco);
     }//GEN-LAST:event_tfPrecoKeyPressed
 
     private void dataVencimentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dataVencimentoKeyPressed
@@ -394,13 +407,17 @@ public class FormularioProdutos extends javax.swing.JPanel {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        new GenericController().removeFisico(Produto.class,produto.getId());
-         actualizarTabela();
+        new GenericController().removeFisico(Produto.class, produto.getId());
+        actualizarTabela();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEliminarMouseClicked
+
+    private void cbFornecedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbFornecedoresActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbFornecedoresActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -408,6 +425,7 @@ public class FormularioProdutos extends javax.swing.JPanel {
     private javax.swing.JButton btnAdicionar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JComboBox<String> cbFornecedores;
     private javax.swing.JFormattedTextField dataVencimento;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
@@ -432,7 +450,7 @@ public class FormularioProdutos extends javax.swing.JPanel {
 
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
         model.setColumnIdentifiers(new String[]{
-            "ID", "Nome", "Categoria","Classificaçao", "Fornecedor", "Quantidade", "Preço", "Data Entrada","Data Vencimento" 
+            "ID", "Nome", "Categoria", "Classificaçao", "Fornecedor", "Quantidade", "Preço", "Data Entrada", "Data Vencimento"
         });
         model.setRowCount(0);
 
@@ -447,8 +465,7 @@ public class FormularioProdutos extends javax.swing.JPanel {
                 produto.getQuantidade(), // Telefone do cliente
                 produto.getPreco(),
                 produto.getDataDeEntrada(),
-                produto.getDataDeVencimento(),
-            });
+                produto.getDataDeVencimento(),});
         }
 
         tabela.setModel(model);
@@ -469,6 +486,14 @@ public class FormularioProdutos extends javax.swing.JPanel {
         Validacao.setarLinguaLabel(lbFornecedor, "Fornecedor", "Gender");
         Validacao.setarLinguaLabel(lbPreco, "Preco", "Price");
         Validacao.setarLinguaLabel(lbQuantidade, "Quantidade", "Quantitity");
+    }
+
+    private void comboboxFornecedores() {
+        List<Fornecedor> lista = (List<Fornecedor>) new GenericController().listar(Fornecedor.class);
+        for (Fornecedor fornecedor : lista) {
+            cbFornecedores.addItem(fornecedor.toString());
+        }
+
     }
 
 }

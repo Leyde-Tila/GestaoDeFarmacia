@@ -94,6 +94,12 @@ public class Fornecedor {
         this.telefone = telefone;
     }
 
+    @Override
+    public String toString() {
+        return nome + " // " + endereço;
+    }
+
+    
     
     
 }

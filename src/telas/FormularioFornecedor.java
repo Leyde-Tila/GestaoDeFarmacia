@@ -6,7 +6,7 @@ package telas;
 
 import DAO.GenericController;
 import Model.Fornecedor;
-//import Model.Usuario;
+import Model.Usuario;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import static telas.Validacao.usuario;
@@ -17,8 +17,7 @@ import static telas.Validacao.usuario;
  */
 public class FormularioFornecedor extends javax.swing.JPanel {
 
-    private Object fornecedor;
-
+ private Fornecedor fornecedor = new Fornecedor();
     /**
      * Creates new form FormularioCadastroUsuario
      */
@@ -261,7 +260,7 @@ public class FormularioFornecedor extends javax.swing.JPanel {
         System.out.println("clicado");
         long id = (long) tabela.getValueAt(tabela.getSelectedRow(), 0);
 
-        Fornecedor fornecedor = (Fornecedor) new GenericController().buscaId(Fornecedor.class, id);
+         fornecedor = (Fornecedor) new GenericController().buscaId(Fornecedor.class, id);
 
         tfNome.setText(fornecedor.getNome());
         tfEndereço.setText(fornecedor.getEndereço());
@@ -278,7 +277,7 @@ public class FormularioFornecedor extends javax.swing.JPanel {
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
         // TODO add your handling code here:
-        Fornecedor fornecedor = new Fornecedor();
+        fornecedor = new Fornecedor();
         fornecedor.setNome(tfNome.getText());
         fornecedor.setEmail(tfEmail.getText());
         fornecedor.setEndereço(tfEndereço.getText());
@@ -294,13 +293,14 @@ public class FormularioFornecedor extends javax.swing.JPanel {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-   //     new GenericController().removeFisico(Fornecedor.class, fornecedor.getId());
-        actualizarTabela();
+       //Fornecedor fornecedor = new Fornecedor();
+        // new GenericController().removeFisico(Fornecedor.class,fornecedor.getId());
+         actualizarTabela();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-       Fornecedor fornecedor = new Fornecedor();
+     //  Fornecedor fornecedor = new Fornecedor();
         fornecedor.setNome(tfNome.getText());
         fornecedor.setEmail(tfEmail.getText());
         fornecedor.setEndereço(tfEndereço.getText());
