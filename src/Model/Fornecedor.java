@@ -17,7 +17,7 @@ import javax.persistence.Id;
 public class Fornecedor {
     @Id
     @GeneratedValue
-    private int id;
+    private long id;
     private String nome;
     private String endereço;
     private String nuit;
@@ -28,7 +28,7 @@ public class Fornecedor {
     public Fornecedor() {
     }
 
-    public Fornecedor(int id, String nome, String endereço, String nuit, String nib, String email, String telefone) {
+    public Fornecedor(long id, String nome, String endereço, String nuit, String nib, String email, String telefone) {
         this.id = id;
         this.nome = nome;
         this.endereço = endereço;
@@ -38,9 +38,16 @@ public class Fornecedor {
         this.telefone = telefone;
     
 }
-    public int getId() {
+
+    public long getId() {
         return id;
     }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+   
+    
 
     public void setId(int id) {
         this.id = id;

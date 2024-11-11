@@ -8,6 +8,7 @@ import DAO.GenericController;
 import Model.Cliente;
 import Model.Pessoa;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,6 +27,7 @@ public class FormularioCadastrarCliente extends javax.swing.JPanel {
         actualizarTabela();
         hint();
         rbSim.setSelected(true);
+        //  rbNao.setSelected(true);
 
     }
 
@@ -59,6 +61,8 @@ public class FormularioCadastrarCliente extends javax.swing.JPanel {
         lbDescricao = new javax.swing.JLabel();
         tfDescricao = new javax.swing.JTextField();
 
+        setBackground(new java.awt.Color(0, 102, 102));
+
         tfNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfNomeActionPerformed(evt);
@@ -70,6 +74,8 @@ public class FormularioCadastrarCliente extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Nome");
 
         tfTelefone.addActionListener(new java.awt.event.ActionListener() {
@@ -83,6 +89,7 @@ public class FormularioCadastrarCliente extends javax.swing.JPanel {
             }
         });
 
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Telefone");
 
         tfMorada.addActionListener(new java.awt.event.ActionListener() {
@@ -96,6 +103,7 @@ public class FormularioCadastrarCliente extends javax.swing.JPanel {
             }
         });
 
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Morada");
 
         btAdicionar.setBackground(new java.awt.Color(51, 153, 255));
@@ -135,6 +143,7 @@ public class FormularioCadastrarCliente extends javax.swing.JPanel {
             }
         });
 
+        tabela.setBackground(new java.awt.Color(204, 204, 204));
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -153,6 +162,7 @@ public class FormularioCadastrarCliente extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tabela);
 
+        rbSim.setForeground(new java.awt.Color(255, 255, 255));
         rbSim.setText("SIM");
         rbSim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -160,8 +170,10 @@ public class FormularioCadastrarCliente extends javax.swing.JPanel {
             }
         });
 
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Doença ou Alergia");
 
+        rbNao.setForeground(new java.awt.Color(255, 255, 255));
         rbNao.setText("NAO");
         rbNao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -169,6 +181,7 @@ public class FormularioCadastrarCliente extends javax.swing.JPanel {
             }
         });
 
+        lbDescricao.setForeground(new java.awt.Color(255, 255, 255));
         lbDescricao.setText("Descricao");
 
         tfDescricao.addActionListener(new java.awt.event.ActionListener() {
@@ -284,9 +297,9 @@ public class FormularioCadastrarCliente extends javax.swing.JPanel {
         cliente.setMorada(tfMorada.getText());
         cliente.setTelefone(tfTelefone.getText());
         cliente.setDescricao(tfDescricao.getText());
-        cliente.setAlergia(rbSim.getText());
-        cliente.setAlergia(rbNao.getText());
-
+        cliente.setAlergia(rbSim.isSelected() ? "Sim" : "Não");
+        JOptionPane.showMessageDialog(null, "Cliente ditado com sucesso!");
+        // cliente.setAlergia(rbNao.getText());
         new GenericController().atualizarPorId(Cliente.class, cliente.getId(), cliente);
 
         actualizarTabela();
@@ -299,9 +312,10 @@ public class FormularioCadastrarCliente extends javax.swing.JPanel {
         cliente.setMorada(tfMorada.getText());
         cliente.setTelefone(tfTelefone.getText());
         cliente.setDescricao(tfDescricao.getText());
-        cliente.setAlergia(rbSim.getText());
-        cliente.setAlergia(rbNao.getText());
+        cliente.setAlergia(rbSim.isSelected() ? "Sim" : "Não");
+        JOptionPane.showMessageDialog(null, "Cliente registrado com sucesso!");
 
+        //  cliente.setAlergia(rbNao.getText());
         new GenericController().add(cliente);
 
         actualizarTabela();
@@ -319,14 +333,15 @@ public class FormularioCadastrarCliente extends javax.swing.JPanel {
         tfMorada.setText(cliente.getMorada());
         tfTelefone.setText(cliente.getTelefone());
         tfDescricao.setText(cliente.getDescricao());
-        cliente.setAlergia(rbSim.getText());
-        cliente.setAlergia(rbNao.getText());
+        cliente.setAlergia(rbSim.isSelected() ? "Sim" : "Não");
+        // cliente.setAlergia(rbNao.getText());
     }//GEN-LAST:event_tabelaMouseClicked
 
     private void btEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarActionPerformed
         // TODO add your handling code here:
         new GenericController().removeFisico(Cliente.class, cliente.getId());
         actualizarTabela();
+           JOptionPane.showMessageDialog(null, " Eliminado!");
     }//GEN-LAST:event_btEliminarActionPerformed
 
     private void btEliminarMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btEliminarMouseDragged

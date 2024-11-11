@@ -7,6 +7,7 @@ package telas;
 import DAO.GenericController;
 import Model.Usuario;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import static telas.Validacao.usuario;
 
@@ -48,6 +49,8 @@ public class FormularioCadastroUsuario extends javax.swing.JPanel {
         btnEliminar = new javax.swing.JButton();
         lbNome = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(0, 102, 102));
+
         btnEditar.setBackground(new java.awt.Color(255, 102, 51));
         btnEditar.setForeground(new java.awt.Color(255, 255, 255));
         btnEditar.setText("Editar");
@@ -57,6 +60,7 @@ public class FormularioCadastroUsuario extends javax.swing.JPanel {
             }
         });
 
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Nome de usuario");
 
         tfCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Farmaceutico", "Supervisor" }));
@@ -66,6 +70,7 @@ public class FormularioCadastroUsuario extends javax.swing.JPanel {
             }
         });
 
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Senha");
 
         tfUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -85,6 +90,8 @@ public class FormularioCadastroUsuario extends javax.swing.JPanel {
             }
         });
 
+        tabela.setBackground(new java.awt.Color(204, 204, 204));
+        tabela.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -103,6 +110,7 @@ public class FormularioCadastroUsuario extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tabela);
 
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Categoria");
 
         tfSenha.addActionListener(new java.awt.event.ActionListener() {
@@ -134,6 +142,7 @@ public class FormularioCadastroUsuario extends javax.swing.JPanel {
             }
         });
 
+        lbNome.setForeground(new java.awt.Color(255, 255, 255));
         lbNome.setText("Nome");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -223,7 +232,7 @@ public class FormularioCadastroUsuario extends javax.swing.JPanel {
         usuario.setUsuario(tfUsuario.getText());
         usuario.setCategoria(tfCategoria.getSelectedItem().toString());
         usuario.setSenha(tfSenha.getText());
-
+        JOptionPane.showMessageDialog(null, "Usuario registrado com sucesso!");
         new GenericController().add(usuario);
 
         actualizarTabela();
@@ -233,6 +242,7 @@ public class FormularioCadastroUsuario extends javax.swing.JPanel {
         // TODO add your handling code here:
         new GenericController().removeFisico(Usuario.class, usuario.getId());
         actualizarTabela();
+        JOptionPane.showMessageDialog(null, "Usuario liminado com sucesso!");
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void tfCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCategoriaActionPerformed
@@ -245,6 +255,7 @@ public class FormularioCadastroUsuario extends javax.swing.JPanel {
         usuario.setUsuario(tfUsuario.getText());
         usuario.setCategoria(tfCategoria.getSelectedItem().toString());
         usuario.setSenha(tfSenha.getText());
+        JOptionPane.showMessageDialog(null, "Usuario editado com sucesso!");
 
         new GenericController().atualizarPorId(Usuario.class, usuario.getId(), usuario);
 
@@ -260,7 +271,7 @@ public class FormularioCadastroUsuario extends javax.swing.JPanel {
 
     private void tfUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfUsuarioKeyPressed
         // TODO add your handling code here:
-                 Validacao.proximoFocu(evt, tfSenha);
+        Validacao.proximoFocu(evt, tfSenha);
 
     }//GEN-LAST:event_tfUsuarioKeyPressed
 

@@ -9,9 +9,11 @@ import Model.Cliente;
 import Model.Produto;
 import Model.Usuario;
 import Model.Venda;
+import controlo.VendasController;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -63,7 +65,7 @@ public class FormularioVendas extends javax.swing.JPanel {
                     produto.getNome(), // Nome do cliente
                     produto.getCategoria(),
                     produto.getQuantidade(), // Telefone do cliente
-                    produto.getFornecedor(), // Morada do cliente (endereço)
+                    produto.getFornecedor().getNome(), // Morada do cliente (endereço)
                     produto.getDataDeEntrada(),
                     produto.getDataDeVencimento(),
                     produto.getPreco(),});
@@ -227,12 +229,19 @@ public class FormularioVendas extends javax.swing.JPanel {
 
         jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
+        jPanel4.setBackground(new java.awt.Color(0, 102, 102));
+        jPanel4.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Quantidade");
 
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Total sem IVA");
 
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Total");
 
+        tabelaProduto.setBackground(new java.awt.Color(204, 204, 204));
         tabelaProduto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -258,6 +267,7 @@ public class FormularioVendas extends javax.swing.JPanel {
             }
         });
 
+        tabelaCliente.setBackground(new java.awt.Color(204, 204, 204));
         tabelaCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -321,8 +331,10 @@ public class FormularioVendas extends javax.swing.JPanel {
         });
         jScrollPane3.setViewportView(tabelaProdutosSeleccionados);
 
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Produtos selecionados");
 
+        lbTotal.setForeground(new java.awt.Color(255, 255, 255));
         lbTotal.setText("Valor Total");
 
         btVender.setBackground(new java.awt.Color(0, 153, 255));
@@ -343,10 +355,13 @@ public class FormularioVendas extends javax.swing.JPanel {
             }
         });
 
+        lbTotalSemIva.setForeground(new java.awt.Color(255, 255, 255));
         lbTotalSemIva.setText("Valor Total");
 
+        lbIva.setForeground(new java.awt.Color(255, 255, 255));
         lbIva.setText("Valor Total");
 
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("IVA");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -435,6 +450,9 @@ public class FormularioVendas extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Nova Venda", jPanel1);
 
+        jPanel3.setBackground(new java.awt.Color(0, 102, 102));
+
+        tabelaVendas.setBackground(new java.awt.Color(204, 204, 204));
         tabelaVendas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -456,10 +474,7 @@ public class FormularioVendas extends javax.swing.JPanel {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(73, Short.MAX_VALUE)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Lista", jPanel3);
@@ -538,6 +553,8 @@ public class FormularioVendas extends javax.swing.JPanel {
         // TODO add your handling code here:
         int linhas = tabelaProdutosSeleccionados.getRowCount();
         Date dataVenda = new Date();
+        
+        int sucessos = 0;
 
         for (int i = 0; i < linhas; i++) {
             int quantidade = Integer.valueOf(tabelaProdutosSeleccionados.getValueAt(i, 3).toString());
@@ -559,13 +576,26 @@ public class FormularioVendas extends javax.swing.JPanel {
             venda.setQuantidade(quantidade);
             venda.setDataHoraCriacao(dataVenda);
 
-            new GenericController().add(venda);
+            //new GenericController().addBoolean(venda);
+            
+            if(new VendasController().vender(venda)){
+                sucessos+=1;
+            }
 
+        }
+        
+        if(sucessos == linhas){
+            JOptionPane.showMessageDialog(null, "Vendas efectuadas com sucesso");
+        }else if(sucessos>0){
+            JOptionPane.showMessageDialog(null, "Sucesso, porem nem todas vendas foram efectuadas com sucesso");
+        } else{
+            JOptionPane.showMessageDialog(null, "Erro ao efectuar vendas");
         }
 
         produtosSelecionados = new ArrayList<Produto>();
         actualizarTabelaProdutosSelecionados();
         actualizarTabelaVendas();
+        actualizarTabelaProduto();
     }//GEN-LAST:event_btVenderActionPerformed
 
     private void tabelaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaClienteMouseClicked

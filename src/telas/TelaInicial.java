@@ -20,24 +20,26 @@ public class TelaInicial extends javax.swing.JFrame {
      */
     public TelaInicial() {
         initComponents();
-//
-//        if (Validacao.usuario.getCategoria().equalsIgnoreCase("Administrador")) {
-//            titulo.setText("CLIENTE");
-//            PainelPrincipal.add(new FormularioCadastrarCliente());
-//        } else {
-//            if (Validacao.usuario.getCategoria().equalsIgnoreCase("Supervisor")) {
-//                titulo.setText("PRODUTOS");
-//                btVendas.setVisible(false);
-//                btClientes.setVisible(false);
-//                PainelPrincipal.add(new FormularioProdutos());
-//            } else {
-//                titulo.setText("VENDAS");
-//                btnUsuario.setVisible(false);
-//                btProdutos.setVisible(false);
-//                PainelPrincipal.add(new FormularioVendas());
-//            }
-//
-//        }
+
+        if (Validacao.usuario.getCategoria().equalsIgnoreCase("Administrador")) {
+           // titulo.setText("CLIENTE");
+           // PainelPrincipal.add(new FormularioCadastrarCliente());
+        } else {
+           if (Validacao.usuario.getCategoria().equalsIgnoreCase("Supervisor")) {
+               // titulo.setText("PRODUTOS");
+                btVendas.setVisible(false);
+                btClientes.setVisible(false);
+                
+              // PainelPrincipal.add(new FormularioProdutos());
+            } else {
+              // titulo.setText("VENDAS");
+                btnUsuario.setVisible(false);
+                btProdutos.setVisible(false);
+                btnFornecedor.setVisible(false);
+             //  PainelPrincipal.add(new FormularioVendas());
+            }
+
+       }
 
         titulo.setText("Dashboard");
         PainelPrincipal.add(new FormularioRelatorio());
@@ -60,8 +62,9 @@ public class TelaInicial extends javax.swing.JFrame {
         btProdutos = new javax.swing.JButton();
         btVendas = new javax.swing.JButton();
         btnUsuario = new javax.swing.JButton();
-        btnUsuario1 = new javax.swing.JButton();
+        btnFornecedor = new javax.swing.JButton();
         btClientes1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         PainelTitulo = new javax.swing.JPanel();
         titulo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -102,10 +105,10 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        btnUsuario1.setText("Fornecedor");
-        btnUsuario1.addActionListener(new java.awt.event.ActionListener() {
+        btnFornecedor.setText("Fornecedor");
+        btnFornecedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUsuario1ActionPerformed(evt);
+                btnFornecedorActionPerformed(evt);
             }
         });
 
@@ -116,6 +119,8 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/logo (1).png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -125,16 +130,22 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btVendas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btClientes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                    .addComponent(btProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
                     .addComponent(btnUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnUsuario1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnFornecedor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btClientes1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(jLabel1)
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
                 .addComponent(btClientes1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btClientes)
@@ -145,8 +156,8 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnUsuario1)
-                .addContainerGap(240, Short.MAX_VALUE))
+                .addComponent(btnFornecedor)
+                .addContainerGap(109, Short.MAX_VALUE))
         );
 
         PainelTitulo.setBackground(new java.awt.Color(255, 255, 255));
@@ -247,7 +258,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnUsuarioActionPerformed
 
-    private void btnUsuario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuario1ActionPerformed
+    private void btnFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFornecedorActionPerformed
         // TODO add your handling code here:
         titulo.setText("Fornecedor");
         titulo.removeAll();
@@ -255,7 +266,7 @@ public class TelaInicial extends javax.swing.JFrame {
         PainelPrincipal.add(new FormularioFornecedor());
         this.repaint();
         this.revalidate();
-    }//GEN-LAST:event_btnUsuario1ActionPerformed
+    }//GEN-LAST:event_btnFornecedorActionPerformed
 
     private void btClientes1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btClientes1ActionPerformed
         // TODO add your handling code here:
@@ -308,8 +319,9 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JButton btClientes1;
     private javax.swing.JButton btProdutos;
     private javax.swing.JButton btVendas;
+    private javax.swing.JButton btnFornecedor;
     private javax.swing.JButton btnUsuario;
-    private javax.swing.JButton btnUsuario1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

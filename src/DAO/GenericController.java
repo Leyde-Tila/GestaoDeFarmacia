@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 public class GenericController {
 
     private final EntityManagerFactory fabrica;
+    private boolean editou;
 
     public GenericController() {
         this.fabrica = Persistence.createEntityManagerFactory("aula");
@@ -14,12 +15,12 @@ public class GenericController {
 
     // Método para executar operações com gerenciamento de transações
     private void executeInTransaction(EntityOperation operation) {
+        System.out.println("Foi chamado sem boolean");
         EntityManager em = fabrica.createEntityManager();
         try {
             em.getTransaction().begin();
             operation.perform(em);
             em.getTransaction().commit();
-            JOptionPane.showMessageDialog(null, "Funcionário registrado com sucesso!");
         } catch (Exception e) {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
@@ -32,8 +33,34 @@ public class GenericController {
         }
     }
 
+    private boolean executeInTransactionBoolean(EntityOperation operation) {
+         System.out.println("Foi chamado com boolean");
+        EntityManager em = fabrica.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            operation.perform(em);
+            em.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            // Adicionar logging apropriado aqui
+            e.printStackTrace();
+            return false;
+        } finally {
+            em.close();
+        }
+    }
+
     public void add(Object obj) {
+        System.out.println("add");
         executeInTransaction(em -> em.persist(obj));
+    }
+
+    public boolean addBoolean(Object obj) { 
+        System.out.println("addBoolean");
+        return executeInTransactionBoolean(em -> em.persist(obj));
     }
 
     public List<?> listar(Class<?> classe) {
@@ -76,42 +103,58 @@ public class GenericController {
     }
 
     public void atualizarPorCodigo(Class<?> classe, String codigo, Object novosDados) {
-    executeInTransaction(em -> {
-        // Faz um select para buscar o objeto pelo código
-        Object obj = em.createQuery("SELECT f FROM " + classe.getSimpleName() + " f WHERE f.codigo = :codigo")
-                        .setParameter("codigo", codigo)
-                        .getSingleResult();
+        executeInTransaction(em -> {
+            // Faz um select para buscar o objeto pelo código
+            Object obj = em.createQuery("SELECT f FROM " + classe.getSimpleName() + " f WHERE f.codigo = :codigo")
+                    .setParameter("codigo", codigo)
+                    .getSingleResult();
 
-        // Se o objeto foi encontrado, atualiza os dados
-        if (obj != null) {
-            em.merge(novosDados);  // Atualiza com os novos dados
-        } else {
-            System.out.println("Código inserido não existe.");
-        }
-    });
-    
+            // Se o objeto foi encontrado, atualiza os dados
+            if (obj != null) {
+                em.merge(novosDados);  // Atualiza com os novos dados
+            } else {
+                System.out.println("Código inserido não existe.");
+            }
+        });
+
     }
-    
-    
-    
+
     public void atualizarPorId(Class<?> classe, long id, Object novosDados) {
-    executeInTransaction(em -> {
-        // Faz um select para buscar o objeto pelo código
-        Object obj = em.createQuery("SELECT f FROM " + classe.getSimpleName() + " f WHERE f.id = :id")
-                        .setParameter("id", id)
-                        .getSingleResult();
+        executeInTransaction(em -> {
+            // Faz um select para buscar o objeto pelo código
+            Object obj = em.createQuery("SELECT f FROM " + classe.getSimpleName() + " f WHERE f.id = :id")
+                    .setParameter("id", id)
+                    .getSingleResult();
 
-        // Se o objeto foi encontrado, atualiza os dados
-        if (obj != null) {
-            em.merge(novosDados);  // Atualiza com os novos dados
-        } else {
-            System.out.println("Id inserido não existe.");
-        }
-    });
-    
+            // Se o objeto foi encontrado, atualiza os dados
+            if (obj != null) {
+                em.merge(novosDados);  // Atualiza com os novos dados
+            } else {
+                System.out.println("Id inserido não existe.");
+            }
+        });
+
     }
-    
-    
+
+    public boolean atualizarPorIdBoolean(Class<?> classe, long id, Object novosDados) {
+        editou = false;
+        executeInTransactionBoolean(em -> {
+            // Faz um select para buscar o objeto pelo código
+            Object obj = em.createQuery("SELECT f FROM " + classe.getSimpleName() + " f WHERE f.id = :id")
+                    .setParameter("id", id)
+                    .getSingleResult();
+
+            // Se o objeto foi encontrado, atualiza os dados
+            if (obj != null) {
+                em.merge(novosDados);  // Atualiza com os novos dados
+                editou = true;
+            } else {
+                System.out.println("Id inserido não existe.");
+            }
+        });
+        return editou;
+    }
+
     public void removeFisico(Class<?> classe, Long id) {
         executeInTransaction(em -> {
             Object obj = em.find(classe, id);
@@ -152,6 +195,7 @@ public class GenericController {
     // Interface funcional para operações com EntityManager
     @FunctionalInterface
     private interface EntityOperation {
+
         void perform(EntityManager em);
     }
 }

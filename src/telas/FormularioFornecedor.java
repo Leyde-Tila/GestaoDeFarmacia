@@ -8,6 +8,7 @@ import DAO.GenericController;
 import Model.Fornecedor;
 import Model.Usuario;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import static telas.Validacao.usuario;
 
@@ -17,7 +18,8 @@ import static telas.Validacao.usuario;
  */
 public class FormularioFornecedor extends javax.swing.JPanel {
 
- private Fornecedor fornecedor = new Fornecedor();
+    private Fornecedor fornecedor = new Fornecedor();
+
     /**
      * Creates new form FormularioCadastroUsuario
      */
@@ -54,6 +56,8 @@ public class FormularioFornecedor extends javax.swing.JPanel {
         tfNib = new javax.swing.JTextField();
         tfTelefone = new javax.swing.JTextField();
 
+        setBackground(new java.awt.Color(0, 102, 102));
+
         btnEditar.setBackground(new java.awt.Color(255, 102, 51));
         btnEditar.setForeground(new java.awt.Color(255, 255, 255));
         btnEditar.setText("Editar");
@@ -63,8 +67,10 @@ public class FormularioFornecedor extends javax.swing.JPanel {
             }
         });
 
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Endereço");
 
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Email");
 
         tfEndereço.addActionListener(new java.awt.event.ActionListener() {
@@ -89,6 +95,8 @@ public class FormularioFornecedor extends javax.swing.JPanel {
             }
         });
 
+        tabela.setBackground(new java.awt.Color(204, 204, 204));
+        tabela.setBorder(new javax.swing.border.MatteBorder(null));
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -107,6 +115,7 @@ public class FormularioFornecedor extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tabela);
 
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("NUIT");
 
         tfEmail.addActionListener(new java.awt.event.ActionListener() {
@@ -138,10 +147,13 @@ public class FormularioFornecedor extends javax.swing.JPanel {
             }
         });
 
+        lbNome.setForeground(new java.awt.Color(255, 255, 255));
         lbNome.setText("Nome");
 
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("NIB");
 
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Telefone");
 
         tfNuit.addActionListener(new java.awt.event.ActionListener() {
@@ -260,7 +272,7 @@ public class FormularioFornecedor extends javax.swing.JPanel {
         System.out.println("clicado");
         long id = (long) tabela.getValueAt(tabela.getSelectedRow(), 0);
 
-         fornecedor = (Fornecedor) new GenericController().buscaId(Fornecedor.class, id);
+        fornecedor = (Fornecedor) new GenericController().buscaId(Fornecedor.class, id);
 
         tfNome.setText(fornecedor.getNome());
         tfEndereço.setText(fornecedor.getEndereço());
@@ -284,8 +296,8 @@ public class FormularioFornecedor extends javax.swing.JPanel {
         fornecedor.setNib(tfNib.getText());
         fornecedor.setNuit(tfNuit.getText());
         fornecedor.setTelefone(tfTelefone.getText());
-  
-        
+        JOptionPane.showMessageDialog(null, "Fornecedor registrado com sucesso!");
+
         new GenericController().add(fornecedor);
 
         actualizarTabela();
@@ -293,21 +305,24 @@ public class FormularioFornecedor extends javax.swing.JPanel {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-       //Fornecedor fornecedor = new Fornecedor();
-        // new GenericController().removeFisico(Fornecedor.class,fornecedor.getId());
-         actualizarTabela();
+        //fornecedor = new Fornecedor();
+        new GenericController().removeFisico(Fornecedor.class, fornecedor.getId());
+        actualizarTabela();
+        JOptionPane.showMessageDialog(null, "Fornecedor eliminado com sucesso!");
+
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-     //  Fornecedor fornecedor = new Fornecedor();
+        fornecedor = new Fornecedor();
         fornecedor.setNome(tfNome.getText());
         fornecedor.setEmail(tfEmail.getText());
         fornecedor.setEndereço(tfEndereço.getText());
         fornecedor.setNib(tfNib.getText());
         fornecedor.setNuit(tfNuit.getText());
         fornecedor.setTelefone(tfTelefone.getText());
-  
+        JOptionPane.showMessageDialog(null, "Fornecedor editado com sucesso!");
+
         new GenericController().atualizarPorId(Fornecedor.class, fornecedor.getId(), fornecedor);
 
         actualizarTabela();
@@ -317,7 +332,7 @@ public class FormularioFornecedor extends javax.swing.JPanel {
         // TODO add your handling code here:
         Validacao.naoAceitarNumeros(evt, tfNome);
         Validacao.proximoFocu(evt, tfEndereço);
-       // Validacao.verificarNomeCompleto(tfNome, lbNome);
+        // Validacao.verificarNomeCompleto(tfNome, lbNome);
     }//GEN-LAST:event_tfNomeKeyPressed
 
     private void tfEndereçoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfEndereçoKeyPressed
